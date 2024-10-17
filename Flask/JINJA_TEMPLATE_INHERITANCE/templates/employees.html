@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Salary</th>
+                <th>Designation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp_id,emp_data in employee_data.items() %}
+                <tr>
+                    <td>{{ emp_id }}</td>
+                    <td>{{ emp_data['Name'] }}</td>
+                    <td>{{ emp_data['Age'] }}</td>
+                    <td>{{ emp_data['Salary'] }}</td>
+                    <td>{{ emp_data['Designation'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <br>
+
+<p>Back to <a href="{{ url_for('home') }}">Home Page</a></p>
+{% endblock content %}

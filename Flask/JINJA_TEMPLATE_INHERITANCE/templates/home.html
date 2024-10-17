@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3>List of Pages</h3>
+    <ul>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li>Contact</li>
+        <li><a href="{{ url_for('employees') }}">Employees</a></li>
+        <ul>
+            <li><a href="{{ url_for('manager') }}">Managers</a></li>
+        </ul>
+        <li>Register</li>
+    </ul>
+{% endblock content %}

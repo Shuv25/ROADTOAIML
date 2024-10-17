@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if number==0 %}
+        <p>The given number {{ number }} is zero</p>
+    {% elif number%2!=0 %}
+        <p>The given number {{ number }} is odd</p>
+    {% else %}
+        <p>The given number {{ number }} is even</p>
+    {% endif %}
+{% endblock content %}
