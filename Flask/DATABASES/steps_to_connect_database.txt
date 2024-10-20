@@ -1,0 +1,92 @@
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/demo_project'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+C:\Users\hp\Documents\GitHub\ROADTOAIML>cd C:\Users\hp\Documents\GitHub\ROADTOAIML\Flask\DATABASES
+
+C:\Users\hp\Documents\GitHub\ROADTOAIML\Flask\DATABASES>python
+Python 3.11.0rc2 (main, Sep 11 2022, 20:22:52) [MSC v.1933 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from db_crud_demo import app, db
+>>> app_context=app.app_context()   
+>>> app_context
+<flask.ctx.AppContext object at 0x000002CEAADD7950>
+>>> app_context.push()
+>>> db.create_all()
+
+
+to add data inside of it
+
+from db_crud_demo import Employee
+>>> shuv=Employee(name='Shuv',age=24,email='shuvsutradhar@gmail.com')
+>>> shuv
+Employee('Shuv', '24', 'shuvsutradhar@gmail.com')
+>>> gagandeep=Employee(name='Gagandeep',age=23,email='gagankumar@gmail.com')    
+>>> gagandeep
+Employee('Gagandeep', '23', 'gagankumar@gmail.com')
+>>> sourav=Employee(name='Sourav',age=23,email='souravsut@gmail.com')        
+>>> sourav
+Employee('Sourav', '23', 'souravsut@gmail.com')
+>>> db.session.add(shuv)
+>>> db.session.commit()
+>>> db.session.add_all([gagandeep,sourav])
+>>> db.session.commit()
+
+to retrive the data
+
+demo_project=Employee.query.all()
+>>> demo_project                     
+[Employee('Shuv', '24', 'shuvsutradhar@gmail.com'), Employee('Gagandeep', '23', 'gagankumar@gmail.com'), Employee('Sourav', '23', 'souravsut@gmail.com')]
+>>> demo_project[0]
+Employee('Shuv', '24', 'shuvsutradhar@gmail.com')
+>>> demo_project[1] 
+Employee('Gagandeep', '23', 'gagankumar@gmail.com')
+>>> demo_project[2] 
+
+
+>>> shuv=demo_project[0]
+>>> shuv.name
+'Shuv'
+>>> shuv.email
+'shuvsutradhar@gmail.com'
+>>> shuv.age
+24
+
+using loop also
+>>> for emp in demo_project:
+...     print(f"{emp.name} who is {emp.age} years old who has email as {emp.email}")
+...                                                                                 
+Shuv who is 24 years old who has email as shuvsutradhar@gmail.com
+Gagandeep who is 23 years old who has email as gagankumar@gmail.com
+Sourav who is 23 years old who has email as souravsut@gmail.com
+
+different accessing 
+
+>>> Employee.query.first()
+Employee('Shuv', '24', 'shuvsutradhar@gmail.com')
+>>> Employee.query.filter_by(name='shuv')
+<flask_sqlalchemy.query.Query object at 0x000002CEAEE91B10>
+>>> Employee.query.filter_by(name='shuv').all()
+[Employee('Shuv', '24', 'shuvsutradhar@gmail.com')]
+>>> Employee.query.filter_by(name='shuv').first()     
+Employee('Shuv', '24', 'shuvsutradhar@gmail.com')
+
+
+access through id
+>>> db.session.get(Employee,3)
+Employee('Sourav', '23', 'souravsut@gmail.com')
+
+updating 
+
+>> sourav=demo_project[2]
+>>> sourav
+Employee('Sourav', '23', 'souravsut@gmail.com')
+>>> sourav.age=24
+>>> sourav        
+Employee('Sourav', '24', 'souravsut@gmail.com')
+
+deleteing
+>>> db.session.delete(sourav)
+>>> db.session.commit()     
+
+fteching data from two tables
+
